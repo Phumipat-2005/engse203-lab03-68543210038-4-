@@ -3,99 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ENGSE203 Pre-LAB 3</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./app.js" defer></script>
+    <title>ENGSE203 LAB 3</title>
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <header class="hero">
       <div class="container">
-        <p class="eyebrow">ENGSE203 • PRE-LAB 3</p>
-        <h1>Profile Card Builder</h1>
-        <p>Semantic HTML, Responsive Layout, Event และ Form</p>
+        <p class="eyebrow">ENGSE203 • LAB 3</p>
+        <h1>Campus Service Request</h1>
+        <p>Responsive Web UI, Event and Form</p>
       </div>
     </header>
 
     <main class="container page-grid">
       <section class="panel" aria-labelledby="form-title">
-        <h2 id="form-title">สร้างข้อมูลแนะนำตัว</h2>
-
-        <form id="profile-form" novalidate>
-          <!-- TODO 1: สร้าง field displayName พร้อม label, input, hint และ error -->
+        <h2 id="form-title">Create Service Request</h2>
+        <form id="request-form" novalidate>
+          <!-- TODO 1: Requester Name field -->
           <div class="field">
-            <label for="display-name">ชื่อที่ต้องการแสดง</label>
+            <label for="requester-name">Requester Name</label>
             <input
-              id="display-name"
-              name="displayName"
+              id="requester-name"
+              name="requesterName"
               type="text"
               minlength="2"
-              placeholder="เช่น สมชาย ใจดี"
-              aria-describedby="displayName-hint displayName-error"
+              placeholder="โปรดระบุชื่อของคุณ"
+              aria-describedby="requesterName-error requesterName-hint"
               required
             />
-            <small id="displayName-hint" class="hint"
+            <small id="requesterName-hint" class="hint"
               >อย่างน้อย 2 ตัวอักษร</small
             >
-            <small id="displayName-error" class="error"></small>
+            <small id="requesterName-error" class="error"></small>
           </div>
-
-          <!-- TODO 2: สร้าง select ชื่อ learningRole -->
+          <!-- TODO 2: Request Type select -->
           <div class="field">
-            <label for="learning-role">บทบาทที่สนใจ</label>
+            <label for="request-type">Request Type</label>
             <select
-              id="learning-role"
-              name="learningRole"
-              aria-describedby="learningRole-error"
+              id="request-type"
+              name="requestType"
+              aria-describedby="requestType-error"
               required
             >
-              <option value="">-- เลือกบทบาท --</option>
-              <option value="Frontend Developer">Frontend Developer</option>
-              <option value="Backend Developer">Backend Developer</option>
-              <option value="Full-Stack Developer">Full-Stack Developer</option>
-              <option value="UX/UI Designer">UX/UI Designer</option>
+              <option value="">-- เลือกประเภทบริการ --</option>
+              <option value="IT Support">IT Support</option>
+              <option value="Facility Maintenance">
+                Facility Maintenance (ซ่อมบำรุงอาคาร)
+              </option>
+              <option value="Cleaning Service">
+                Cleaning Service (แจ้งทำความสะอาด)
+              </option>
+              <option value="Other">Other (อื่นๆ)</option>
             </select>
-            <small id="learningRole-error" class="error"></small>
+            <small id="requestType-error" class="error"></small>
           </div>
-
-          <!-- TODO 3: สร้าง textarea ชื่อ learningGoal -->
+          <!-- TODO 3: Details textarea -->
           <div class="field">
-            <label for="learning-goal">เป้าหมายการเรียนรู้</label>
+            <label for="details">รายละเอียด (Details)</label>
             <textarea
-              id="learning-goal"
-              name="learningGoal"
+              id="details"
+              name="details"
               rows="5"
               minlength="10"
-              placeholder="เช่น ต้องการสร้างเว็บที่ใช้งานได้จริงและรองรับมือถือ"
-              aria-describedby="learningGoal-hint learningGoal-error"
+              placeholder="ระบุรายละเอียดปัญหาที่ต้องการแจ้ง"
+              aria-describedby="details-error details-hint"
               required
             ></textarea>
+
             <div class="field-meta">
-              <small id="learningGoal-hint" class="hint"
-                >อย่างน้อย 10 ตัวอักษร</small
+              <small id="details-hint" class="hint"
+                >กรอกอย่างน้อย 10 ตัวอักษร</small
               >
               <small id="goal-count" class="counter" aria-live="polite"
                 >0 ตัวอักษร</small
               >
             </div>
-            <small id="learningGoal-error" class="error"></small>
+            <small id="details-error" class="error"></small>
           </div>
-
-          <div class="actions">
-            <button type="submit">ยืนยันข้อมูล</button>
-            <button type="reset" class="button-secondary">เริ่มใหม่</button>
-          </div>
+          <button type="submit">Submit Request</button>
           <p id="form-status" class="status" role="status"></p>
         </form>
       </section>
 
       <aside class="panel preview-panel" aria-labelledby="preview-title">
         <h2 id="preview-title">Live Preview</h2>
-        <article class="profile-card" aria-live="polite">
-          <div class="avatar" aria-hidden="true">SE</div>
-          <h3 id="preview-name">ยังไม่ระบุชื่อ</h3>
-          <p id="preview-role">ยังไม่เลือกบทบาท</p>
-          <p id="preview-goal">ยังไม่มีเป้าหมายการเรียนรู้</p>
-        </article>
+        <dl id="preview" aria-live="polite">
+          <div>
+            <dt>Name</dt>
+            <dd id="preview-name">ยังไม่ระบุชื่อ</dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd id="preview-type">ยังไม่เลือกประเภท</dd>
+          </div>
+          <div>
+            <dt>Details</dt>
+            <dd id="preview-details">ยังไม่มีรายละเอียด</dd>
+          </div>
+        </dl>
+        <h3>Submitted Requests</h3>
+        <ul id="request-list" class="request-list"></ul>
       </aside>
     </main>
   </body>
